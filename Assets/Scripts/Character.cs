@@ -5,35 +5,22 @@ using UnityEngine.InputSystem;
 public class Character : MonoBehaviour
 {
 
+    [SerializeField] private float characterSpeed;
+    [SerializeField] private float dampening;
+    [SerializeField] private Transform cameraTransform;
+    [SerializeField] private float gravity;
+    [SerializeField] private float jumpSpeed;
+    [SerializeField] private float jumpCooldown;
+    
     private bool isJumping = false;
-
     private float jumpCooldownTimer;
-
     private CharacterController controller;
-
     private InputAction moveAction;
-
     private InputAction jumpAction;
-
-    [SerializeField]
-    private float characterSpeed;
-
-    [SerializeField]
-    private float dampening;
-
-    [SerializeField]
-    private Transform cameraTransform;
-
-    [SerializeField]
-    private float gravity;
-
-    [SerializeField]
-    private float jumpSpeed;
-    [SerializeField]
-    private float jumpCooldown;
     private Vector3 characterMovement;
     private Vector3 jumpVelocity;
     private Vector3 characterGravity;
+    private Vector3 platformVelocity;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -73,6 +60,7 @@ public class Character : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        GetPlatformVelocity();
 
         this.HandleJumping();
         var inputMovement = this.moveAction.ReadValue<Vector2>();
@@ -99,6 +87,28 @@ public class Character : MonoBehaviour
         {
             this.transform.forward = characterForward.normalized;
         }
-        this.controller.Move(this.characterMovement);
+        var combinedMovement = this.characterMovement + this.platformVelocity * Time.fixedDeltaTime;
+        this.controller.Move(combinedMovement);
+    }
+
+    private void GetPlatformVelocity()
+    {
+        int platformLayer = LayerMask.GetMask("Platforms");
+
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 0.1f, platformLayer))
+        {
+            if(hit.collider.TryGetComponent<MovingPlatform>(out MovingPlatform platform))
+            {
+                platformVelocity = platform.GetVelocity();
+            }
+            else
+            {
+                platformVelocity = Vector3.zero;
+            }
+        }
+        else
+        {
+            platformVelocity = Vector3.zero;
+        }
     }
 }

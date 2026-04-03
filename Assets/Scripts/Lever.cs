@@ -1,54 +1,92 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class Lever : MonoBehaviour
 {
-
-    [SerializeField] Transform onPosition;
-    [SerializeField] Transform offPosition;
-    [SerializeField] GameObject leverHandle;
-
-    private bool isOn = false;
-    private bool isInterpolating = false;
+    private bool isCharacterIn = false;
+    private bool on = false;
+    private bool interpolating = false;
+    private float currentInterpolationTime = 0.0f;
     private InputAction interactAction;
+    [SerializeField] private UnityEvent<bool> shouldPlatformsMoving;
+    [SerializeField]
+    private float switchTime;
+    [SerializeField]
+    private Transform onPosition;
+    [SerializeField]
+    private Transform offPosition;
+    [SerializeField]
+    private GameObject leverHandle;
 
     void Start()
     {
-        interactAction = InputSystem.actions.FindAction("Interact");
+        this.interactAction = InputSystem.actions.FindAction("Interact");
+    }
+
+    IEnumerator InterpolateLeverCoroutine()
+    {
+        this.interpolating = true;
+        Vector3 startPosition, targetPosition;
+        Quaternion startRotation, targetRotation;
+        if (this.on)
+        {
+            startPosition = this.offPosition.position;
+            startRotation = this.offPosition.rotation;
+            targetPosition = this.onPosition.position;
+            targetRotation = this.onPosition.rotation;
+            shouldPlatformsMoving.Invoke(true);
+        }
+        else
+        {
+            startPosition = this.onPosition.position;
+            startRotation = this.onPosition.rotation;
+            targetPosition = this.offPosition.position;
+            targetRotation = this.offPosition.rotation;
+            shouldPlatformsMoving.Invoke(false);
+        }
+        this.currentInterpolationTime = 0.0f;
+        while (this.currentInterpolationTime < this.switchTime)
+        {
+            float percentage = this.currentInterpolationTime / this.switchTime;
+            var currentPosition = Vector3.Lerp(startPosition, targetPosition, percentage);
+            var currentRotation = Quaternion.Slerp(startRotation, targetRotation, percentage);
+            this.leverHandle.transform.SetPositionAndRotation(currentPosition, currentRotation);
+            yield return null;
+            this.currentInterpolationTime += Time.deltaTime;
+        }
+        this.leverHandle.transform.SetPositionAndRotation(targetPosition, targetRotation);
+        this.interpolating = false;
     }
 
     void ToggleLever()
     {
-        isOn = !isOn;
-        isInterpolating = true;
-        float cooldown = 0.5f; // Duration of the interpolation
-        Vector3 startPosition, targetPosition;
-        Quaternion startRotation, targetRotation;
-
-        if (isOn)
-        {
-            startPosition = onPosition.position;
-            targetPosition = offPosition.position;
-            startRotation = onPosition.rotation;
-            targetRotation = offPosition.rotation;
-        }
-        else
-        {
-            startPosition = offPosition.position;
-            targetPosition = onPosition.position;
-            startRotation = offPosition.rotation;
-            targetRotation = onPosition.rotation;
-        }
-        leverHandle.transform.SetPositionAndRotation(targetPosition, targetRotation);
-        isInterpolating = false;
+        this.on = !this.on;
+        this.StartCoroutine(this.InterpolateLeverCoroutine());
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (interactAction.WasPressedThisFrame())
+        if (this.interactAction.WasPressedThisFrame() && !this.interpolating && this.isCharacterIn)
         {
-            ToggleLever();
-            Debug.Log("Lever interacted with!");
+            this.ToggleLever();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.layer == 6)
+        {
+            isCharacterIn = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 6)
+        {
+            isCharacterIn = false;
         }
     }
 }
