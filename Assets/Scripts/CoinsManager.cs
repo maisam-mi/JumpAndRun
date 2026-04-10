@@ -10,7 +10,6 @@ public class CoinsManager : MonoBehaviour
     public void IncreaseCoins()
     {
         Coins += 1;
-        Debug.Log(Coins);
     }
 
     public void UpdateCoinsText()
