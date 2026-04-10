@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -23,6 +24,8 @@ public class Lever : MonoBehaviour
     void Start()
     {
         this.interactAction = InputSystem.actions.FindAction("Interact");
+        this.leverHandle.transform.SetPositionAndRotation(this.offPosition.position, this.offPosition.rotation);
+        shouldPlatformsMoving.Invoke(false);
     }
 
     IEnumerator InterpolateLeverCoroutine()
