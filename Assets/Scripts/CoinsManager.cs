@@ -14,6 +14,6 @@ public class CoinsManager : MonoBehaviour
 
     public void UpdateCoinsText()
     {
-        scoreText.text = $"COINS: {Coins} / 10";
+        scoreText.text = $"Coins: {Coins} / 10";
     }
 }
