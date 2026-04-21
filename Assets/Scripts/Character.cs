@@ -11,7 +11,9 @@ public class Character : MonoBehaviour
     [SerializeField] private float gravity;
     [SerializeField] private float jumpSpeed;
     [SerializeField] private float jumpCooldown;
-    
+    [SerializeField] private float maxHealth = 100f;
+
+    private float currentHealth;
     private bool isJumping = false;
     private float jumpCooldownTimer;
     private CharacterController controller;
@@ -28,6 +30,7 @@ public class Character : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         this.animator = this.GetComponent<Animator>();
+        this.currentHealth = this.maxHealth;
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
         jumpCooldownTimer = 0.0f;
@@ -43,6 +46,15 @@ public class Character : MonoBehaviour
         this.animator.SetBool("IsJumping", this.isJumping);
         this.animator.SetBool("IsRunning", inputMovement != Vector2.zero);
         this.animator.SetFloat("MovementForward", inputMovement.magnitude);
+    }
+
+    public float GetCurrentHealth() => this.currentHealth;
+    public float GetMaxHealth() => this.maxHealth;
+
+    public void InflictDamage(float amount)
+    {
+        this.currentHealth -= amount;
+        this.currentHealth = Mathf.Clamp(this.currentHealth, 0.0f, this.maxHealth);
     }
 
     void HandleJumping()

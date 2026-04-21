@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="Parent" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Textures/KenneyRPGUI/PNG/buttonLong_brown_pressed.png?fileID=2800000&amp;guid=7ccb5e04df5aca647a1e0a8fe5481f14&amp;type=3#buttonLong_brown_pressed&quot;); min-height: 0%; max-height: 25%; top: 70%; left: 5%; right: 5%; max-width: 90%;">
+        <ui:Label text="Hello World!" style="flex-grow: 1; min-width: 4%; max-width: 92%; min-height: 5%; max-height: 55%; top: 15%; left: 4%; right: 4%; bottom: 15%; -unity-font-definition: resource(&quot;FlatSkin/Font/Roboto-Medium&quot;); font-size: 35px; white-space: normal; color: rgb(245, 233, 213);"/>
+    </ui:VisualElement>
+</ui:UXML>
