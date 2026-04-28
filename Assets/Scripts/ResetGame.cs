@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class ResetGame : MonoBehaviour
 {
 
-    [SerializeField] private TimeManager timeManager;
+    [SerializeField] private UIManager UIManager;
     [SerializeField] private TMP_Text infoText;
     private bool gameFinished = false;
     private InputAction clickAction;
@@ -22,7 +22,7 @@ public class ResetGame : MonoBehaviour
             return;
 
         gameFinished = true;
-        timeManager.SetGameRunning();
+        UIManager.SetGameRunning();
         infoText.gameObject.SetActive(true);
     }
 

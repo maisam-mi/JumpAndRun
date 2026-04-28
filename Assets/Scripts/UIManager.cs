@@ -14,11 +14,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image healthBar;
 
     [SerializeField] private TextMeshProUGUI coinCounterText;
+    [SerializeField] private TMP_Text timerText;
 
     [SerializeField] private CanvasGroup hudCanvasGroup;
     [SerializeField] private CanvasGroup gameOverCanvasGroup;
     [SerializeField] private float fadingTime = 2.0f;
     private bool isFadingInGameOver = false;
+    private bool gameRunning = true;
 
     private IEnumerator FadeInGameOver()
     {
@@ -49,7 +51,16 @@ public class UIManager : MonoBehaviour
         float healthInPercent = this.character.GetCurrentHealth() / this.character.GetMaxHealth();
         this.healthBar.fillAmount = healthInPercent;
 
-        if(healthInPercent <= 0.0f && !this.isFadingInGameOver)
+        if (gameRunning)
+        {
+            this.statistics.timer += Time.deltaTime;
+            float minutes = Mathf.FloorToInt(this.statistics.timer / 60);
+            float seconds = Mathf.FloorToInt(this.statistics.timer % 60);
+            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
+        
+
+        if (healthInPercent <= 0.0f && !this.isFadingInGameOver)
         {
             this.StartCoroutine(FadeInGameOver());
         }
@@ -62,10 +73,16 @@ public class UIManager : MonoBehaviour
         coinCounterText.text = coinText;
     }
 
+    public void SetGameRunning()
+    {
+        gameRunning = false;
+    }
+
     // TODO: extract into own script
     private class PlayerStatistics
     {
         public int coinCounter = 0;
+        public float timer = 0.0f;
         // add more statistics
     }
 }

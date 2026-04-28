@@ -1,6 +1,8 @@
+using DG.Tweening;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class Character : MonoBehaviour
 {
@@ -12,6 +14,10 @@ public class Character : MonoBehaviour
     [SerializeField] private float jumpSpeed;
     [SerializeField] private float jumpCooldown;
     [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private AudioSource JumpAudioSource;
+    [SerializeField] private AudioSource footstepAudioSource;
+
+    [SerializeField] private ParticleSystem dustParticles;
 
     private float currentHealth;
     private bool isJumping = false;
@@ -34,6 +40,7 @@ public class Character : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
         jumpCooldownTimer = 0.0f;
+        footstepAudioSource.Play();
     }
 
     //void SetAnimationState()
@@ -71,6 +78,7 @@ public class Character : MonoBehaviour
             this.jumpVelocity.y = this.jumpSpeed;
             this.jumpCooldownTimer = this.jumpCooldown;
             this.isJumping = true;
+            JumpAudioSource.Play();
         }
         if (this.jumpVelocity.y > 0.0f)
         {
@@ -115,6 +123,19 @@ public class Character : MonoBehaviour
         }
         var combinedMovement = this.characterMovement + this.platformVelocity * Time.fixedDeltaTime;
         this.controller.Move(combinedMovement);
+
+        if(inputMovement != Vector2.zero && !isJumping)
+        {
+            this.footstepAudioSource.mute = false;
+            if (!dustParticles.isPlaying)
+                dustParticles.Play();
+        }
+        else
+        {
+            this.footstepAudioSource.mute = true;
+            if (dustParticles.isPlaying)
+                dustParticles.Stop();
+        }
     }
 
     private void GetPlatformVelocity()
@@ -136,5 +157,35 @@ public class Character : MonoBehaviour
         {
             platformVelocity = Vector3.zero;
         }
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.CompareTag("Enemy"))
+        {
+            if (IsStompingEnemy() && isJumping)
+            {
+                if (hit.gameObject.TryGetComponent<Skeleton>(out var enemy))
+                {
+                    enemy.GetHit();
+                }
+            }
+        }
+    }
+
+    private bool IsStompingEnemy()
+    {
+        // Cast a ray downward from the player's feet
+        float rayLength = 0.5f;
+        int enemyLayer = LayerMask.GetMask("Enemy");
+
+        bool enemyBelow = Physics.Raycast(
+            transform.position,   // from player center
+            Vector3.down,         // downward
+            rayLength,            // short distance
+            enemyLayer            // only hit Enemy layer
+        );
+
+        return enemyBelow;
     }
 }
