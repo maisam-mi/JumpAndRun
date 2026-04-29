@@ -2,12 +2,19 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Codice.Client.Common.EventTracking.TrackFeatureUseEvent.Features.DesktopGUI.Filters;
 
 public class Skeleton : MonoBehaviour
 {
+    [Header("Damage")]
+    [SerializeField] private float damagePerSecound = 25f;
+
+    [Header("Movement")]
     [SerializeField] private List<Vector3> positions;
     [SerializeField] private float speed;
     [SerializeField] private float waitedTime;
+
+    [Header("Sound")]
     [SerializeField] private AudioSource squashSound;
 
     private Animator animator;
@@ -90,5 +97,13 @@ public class Skeleton : MonoBehaviour
         squashSequence.AppendInterval(0.1f);
         squashSequence.Append(transform.DOScale(Vector3.zero, 0.2f));
         squashSequence.OnComplete(() => Destroy(gameObject));
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (!collision.gameObject.CompareTag("Player")) return;
+
+        if(collision.gameObject.TryGetComponent<Character>(out Character character))
+            character.InflictDamage(this.damagePerSecound * Time.fixedDeltaTime);
     }
 }

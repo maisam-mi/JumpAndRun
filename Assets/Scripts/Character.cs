@@ -29,6 +29,7 @@ public class Character : MonoBehaviour
     private Vector3 jumpVelocity;
     private Vector3 characterGravity;
     private Vector3 platformVelocity;
+    private bool isDeath = false;
     private Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -53,6 +54,7 @@ public class Character : MonoBehaviour
         this.animator.SetBool("IsJumping", this.isJumping);
         this.animator.SetBool("IsRunning", inputMovement != Vector2.zero);
         this.animator.SetFloat("MovementForward", inputMovement.magnitude);
+        this.animator.SetBool("IsDeath", this.isDeath);
     }
 
     public float GetCurrentHealth() => this.currentHealth;
@@ -135,6 +137,12 @@ public class Character : MonoBehaviour
             this.footstepAudioSource.mute = true;
             if (dustParticles.isPlaying)
                 dustParticles.Stop();
+        }
+
+        if(this.currentHealth <= 0)
+        {
+            this.isDeath = true;
+            SetAnimationState(inputMovement);
         }
     }
 

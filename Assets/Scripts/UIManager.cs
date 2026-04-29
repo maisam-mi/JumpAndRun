@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -63,7 +64,14 @@ public class UIManager : MonoBehaviour
         if (healthInPercent <= 0.0f && !this.isFadingInGameOver)
         {
             this.StartCoroutine(FadeInGameOver());
+            this.StartCoroutine(RestartAfterDelay(2f));
         }
+    }
+
+    private IEnumerator RestartAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void CollectCoin()
