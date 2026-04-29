@@ -30,6 +30,15 @@ MonoBehaviour:
     m_Localized: Click mouse left button to restart the game.
     m_Metadata:
       m_Items: []
+  - m_Id: 3051377864466432
+    m_Localized: You are near the chest. Keep Going :D
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3051582777188352
+    m_Localized: "Watch out the enemies and the saw. They can hurt you :P \nBy the
+      way, you can destroy enemies by jumping on them."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

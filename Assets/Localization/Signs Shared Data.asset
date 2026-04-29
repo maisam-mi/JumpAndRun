@@ -27,6 +27,14 @@ MonoBehaviour:
     m_Key: ChestInfo
     m_Metadata:
       m_Items: []
+  - m_Id: 3051377864466432
+    m_Key: RouteInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3051582777188352
+    m_Key: EnemyGuide
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

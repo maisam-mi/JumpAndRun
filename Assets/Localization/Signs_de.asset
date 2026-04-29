@@ -31,6 +31,15 @@ MonoBehaviour:
     m_Localized: Klicken Sie mit der linken Maustaste, um das Spiel neu zu starten.
     m_Metadata:
       m_Items: []
+  - m_Id: 3051377864466432
+    m_Localized: Du bist fast an der Truhe. Weiter so! :D
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3051582777188352
+    m_Localized: "Pass auf die Gegner und die S\xE4ge auf! Die k\xF6nnen dich verletzen
+      :P \n\xDCbrigens: Du kannst Gegner besiegen, indem du auf sie springst."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
