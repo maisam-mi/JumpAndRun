@@ -26,6 +26,10 @@ MonoBehaviour:
     m_Localized: Interact with lever, so the platforms start moving.
     m_Metadata:
       m_Items: []
+  - m_Id: 3027966148730880
+    m_Localized: Click mouse left button to restart the game.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -27,6 +27,10 @@ MonoBehaviour:
       setzen."
     m_Metadata:
       m_Items: []
+  - m_Id: 3027966148730880
+    m_Localized: Klicken Sie mit der linken Maustaste, um das Spiel neu zu starten.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

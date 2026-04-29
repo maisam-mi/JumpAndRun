@@ -84,8 +84,9 @@ public class Skeleton : MonoBehaviour
 
         Sequence squashSequence = DOTween.Sequence();
 
-        squashSequence.Append(transform.DOScaleX(1.6f, 0.1f));
-        squashSequence.Join(transform.DOScaleY(0.4f, 0.1f));
+        squashSequence.Append(transform.DOScaleX(1.3f, 0.25f));
+        squashSequence.Join(transform.DOScaleZ(1.3f, 0.25f));
+        squashSequence.Join(transform.DOScaleY(0.4f, 0.25f));
         squashSequence.AppendInterval(0.1f);
         squashSequence.Append(transform.DOScale(Vector3.zero, 0.2f));
         squashSequence.OnComplete(() => Destroy(gameObject));

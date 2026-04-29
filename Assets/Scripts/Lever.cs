@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class Lever : MonoBehaviour
 {
     private bool isCharacterIn = false;
-    private bool on = false;
+    private bool on = true;
     private bool interpolating = false;
     private float currentInterpolationTime = 0.0f;
     private InputAction interactAction;
@@ -25,7 +25,7 @@ public class Lever : MonoBehaviour
     {
         this.interactAction = InputSystem.actions.FindAction("Interact");
         this.leverHandle.transform.SetPositionAndRotation(this.offPosition.position, this.offPosition.rotation);
-        shouldPlatformsMoving.Invoke(false);
+        shouldPlatformsMoving.Invoke(true);
     }
 
     IEnumerator InterpolateLeverCoroutine()

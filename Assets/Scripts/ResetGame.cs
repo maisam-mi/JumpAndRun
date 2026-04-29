@@ -1,13 +1,16 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Localization;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class ResetGame : MonoBehaviour
 {
 
     [SerializeField] private UIManager UIManager;
-    [SerializeField] private TMP_Text infoText;
+    [SerializeField] private GameObject dialogueBox;
+    [SerializeField] private LocalizedString dialogueText;
     private bool gameFinished = false;
     private InputAction clickAction;
 
@@ -23,7 +26,10 @@ public class ResetGame : MonoBehaviour
 
         gameFinished = true;
         UIManager.SetGameRunning();
-        infoText.gameObject.SetActive(true);
+        this.dialogueBox.SetActive(true);
+        var uiDocument = this.dialogueBox.GetComponent<UIDocument>();
+        var label = uiDocument.rootVisualElement.Q<Label>();
+        label.text = this.dialogueText.GetLocalizedString();
     }
 
     private void Update()

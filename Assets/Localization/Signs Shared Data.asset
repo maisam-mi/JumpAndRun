@@ -23,6 +23,10 @@ MonoBehaviour:
     m_Key: LeverInfo
     m_Metadata:
       m_Items: []
+  - m_Id: 3027966148730880
+    m_Key: ChestInfo
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
