@@ -28,7 +28,7 @@ public class SawController : MonoBehaviour
         audioSource.loop = true;
         audioSource.playOnAwake = false;
 
-        //sparklingParticles.Stop();
+        sparklingParticles.Stop();
     }
 
     private void Start()
@@ -76,7 +76,7 @@ public class SawController : MonoBehaviour
             audioSource.clip = cuttingSound;
             audioSource.Play();
 
-            //sparklingParticles.Play();
+            sparklingParticles.Play();
         }
         // IDLE
         else
@@ -85,7 +85,7 @@ public class SawController : MonoBehaviour
             audioSource.clip = idleSound;
             audioSource.Play();
 
-            //sparklingParticles.Stop();
+            sparklingParticles.Stop();
         }
     }
 
