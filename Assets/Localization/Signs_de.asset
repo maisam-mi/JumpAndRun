@@ -28,11 +28,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3027966148730880
-    m_Localized: Klicken Sie mit der linken Maustaste, um das Spiel neu zu starten.
+    m_Localized: 
     m_Metadata:
       m_Items: []
   - m_Id: 3051377864466432
-    m_Localized: Du bist fast an der Truhe. Weiter so! :D
+    m_Localized: "Du bist in der N\xE4he des Juwels. Weiter so! :D"
     m_Metadata:
       m_Items: []
   - m_Id: 3051582777188352

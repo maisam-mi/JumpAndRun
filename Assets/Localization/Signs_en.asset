@@ -27,11 +27,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3027966148730880
-    m_Localized: Click mouse left button to restart the game.
+    m_Localized: 
     m_Metadata:
       m_Items: []
   - m_Id: 3051377864466432
-    m_Localized: You are near the chest. Keep Going :D
+    m_Localized: You are near the jewel. Keep Going :D
     m_Metadata:
       m_Items: []
   - m_Id: 3051582777188352

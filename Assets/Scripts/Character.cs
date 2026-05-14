@@ -119,12 +119,13 @@ public class Character : MonoBehaviour
         this.characterMovement *= (1 - this.dampening);
         Vector3 characterForward = this.characterMovement;
         characterForward.y = 0.0f;
-        if (characterForward.sqrMagnitude > 0.0f && characterForward != Vector3.zero)
+        if (characterForward.sqrMagnitude > 0.0f && characterForward != Vector3.zero && !this.isDeath)
         {
             this.transform.forward = characterForward.normalized;
         }
         var combinedMovement = this.characterMovement + this.platformVelocity * Time.fixedDeltaTime;
-        this.controller.Move(combinedMovement);
+        if(!this.isDeath)
+            this.controller.Move(combinedMovement);
 
         if(inputMovement != Vector2.zero && !isJumping)
         {
@@ -143,6 +144,10 @@ public class Character : MonoBehaviour
         {
             this.isDeath = true;
             SetAnimationState(inputMovement);
+        }
+        else
+        {
+            this.isDeath = false;
         }
     }
 
@@ -195,5 +200,10 @@ public class Character : MonoBehaviour
         );
 
         return enemyBelow;
+    }
+
+    public void ResetHealth()
+    {
+        currentHealth = maxHealth;
     }
 }

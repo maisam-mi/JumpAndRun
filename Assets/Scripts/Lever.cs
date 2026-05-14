@@ -92,4 +92,10 @@ public class Lever : MonoBehaviour
             isCharacterIn = false;
         }
     }
+
+    public void ResetLever()
+    {
+        this.on = false;
+        this.StartCoroutine(this.InterpolateLeverCoroutine());
+    }
 }

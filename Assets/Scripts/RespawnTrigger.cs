@@ -15,8 +15,8 @@ public class RespawnTrigger : MonoBehaviour
 
     private void Respawn(CharacterController controller)
     {
-        controller.enabled = false;
-        controller.transform.position = respawnPoint.position;
-        controller.enabled = true;
+        UIManager.Instance.ShowGameOver();
+        Character character = controller.gameObject.GetComponent<Character>();
+        character.InflictDamage(character.GetMaxHealth());
     }
 }

@@ -26,6 +26,6 @@ public class CoinController : MonoBehaviour
 
         coinCollectEvent.Invoke();
         coinCollectSound.Play();
-        Destroy(gameObject);
+        this.gameObject.SetActive(false);
     }
 }

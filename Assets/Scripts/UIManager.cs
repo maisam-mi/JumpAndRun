@@ -17,27 +17,116 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI coinCounterText;
     [SerializeField] private TMP_Text timerText;
 
-    [SerializeField] private CanvasGroup hudCanvasGroup;
-    [SerializeField] private CanvasGroup gameOverCanvasGroup;
-    [SerializeField] private float fadingTime = 2.0f;
+    [SerializeField] private TextMeshProUGUI victoryCoinCounterText;
+    [SerializeField] private TMP_Text victoryTimerText;
+
+    [SerializeField] private Canvas hudCanvas;
+    [SerializeField] private Canvas gameOverCanvas;
+    [SerializeField] private Canvas victoryCanvas;
+    [SerializeField] private float fadingTime = 0.25f;
     private bool isFadingInGameOver = false;
     private bool gameRunning = true;
+    private CanvasGroup hudCanvasGroup;
+    private CanvasGroup gameOverCanvasGroup;
+    private CanvasGroup victoryCanvasGroup;
 
-    private IEnumerator FadeInGameOver()
+    private IEnumerator FadeInVictory()
     {
         this.isFadingInGameOver = true;
+
+        this.victoryCanvasGroup.interactable = true;
 
         float timer = 0.0f;
         while (timer < this.fadingTime)
         {
             float percent = timer / this.fadingTime;
-            this.hudCanvasGroup.alpha = 1.0f - percent;
+
+            this.victoryCanvasGroup.alpha = percent;
+            yield return null;
+            timer += Time.deltaTime;
+        }
+        this.victoryCanvasGroup.alpha = 1.0f;
+    }
+    private IEnumerator FadeOutVictory()
+    {
+        this.isFadingInGameOver = false;
+
+        this.victoryCanvasGroup.interactable = false;
+
+        float timer = 0.0f;
+        while (timer < this.fadingTime)
+        {
+            float percent = timer / this.fadingTime;
+
+            this.victoryCanvasGroup.alpha = 1.0f - percent;
+            yield return null;
+            timer += Time.deltaTime;
+        }
+        this.victoryCanvasGroup.alpha = 0.0f;
+    }
+
+    private IEnumerator FadeInGameOver()
+    {
+        this.isFadingInGameOver = true;
+
+        this.gameOverCanvasGroup.interactable = true;
+
+        float timer = 0.0f;
+        while (timer < this.fadingTime)
+        {
+            float percent = timer / this.fadingTime;
+            
             this.gameOverCanvasGroup.alpha = percent;
             yield return null;
             timer += Time.deltaTime;
         }
-        this.hudCanvasGroup.alpha = 0.0f;
         this.gameOverCanvasGroup.alpha = 1.0f;
+    }
+
+    private IEnumerator FadeOutGameOver()
+    {
+        this.isFadingInGameOver = false;
+
+        this.gameOverCanvasGroup.interactable = false;
+
+        float timer = 0.0f;
+        while (timer < this.fadingTime)
+        {
+            float percent = timer / this.fadingTime;
+
+            this.gameOverCanvasGroup.alpha = 1.0f - percent;
+            yield return null;
+            timer += Time.deltaTime;
+        }
+        this.gameOverCanvasGroup.alpha = 0.0f;
+    }
+
+    private IEnumerator FadeInUHD()
+    {
+        float timer = 0.0f;
+        while (timer < this.fadingTime)
+        {
+            float percent = timer / this.fadingTime;
+
+            this.hudCanvasGroup.alpha = percent;
+            yield return null;
+            timer += Time.deltaTime;
+        }
+        this.hudCanvasGroup.alpha = 1.0f;
+    }
+
+    private IEnumerator FadeOutUHD()
+    {
+        float timer = 0.0f;
+        while (timer < this.fadingTime)
+        {
+            float percent = timer / this.fadingTime;
+
+            this.hudCanvasGroup.alpha = 1.0f - percent;
+            yield return null;
+            timer += Time.deltaTime;
+        }
+        this.hudCanvasGroup.alpha = 0.0f;
     }
 
 
@@ -45,6 +134,10 @@ public class UIManager : MonoBehaviour
     {
         instance = this;
         this.statistics = new PlayerStatistics();
+
+        this.hudCanvasGroup = hudCanvas.GetComponent<CanvasGroup>();
+        this.gameOverCanvasGroup = gameOverCanvas.GetComponent<CanvasGroup>();
+        this.victoryCanvasGroup = victoryCanvas.GetComponent<CanvasGroup>();
     }
 
     private void Update()
@@ -63,15 +156,58 @@ public class UIManager : MonoBehaviour
 
         if (healthInPercent <= 0.0f && !this.isFadingInGameOver)
         {
-            this.StartCoroutine(FadeInGameOver());
-            this.StartCoroutine(RestartAfterDelay(2f));
+            ShowGameOver();
         }
     }
 
-    private IEnumerator RestartAfterDelay(float delay)
+    public void ResetUI(bool isWon)
     {
-        yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (isWon)
+        {
+            this.StartCoroutine(FadeOutVictory());
+        }
+        else
+        {
+            this.StartCoroutine(FadeOutGameOver());
+        }
+
+            this.StartCoroutine(FadeInUHD());
+
+        this.statistics.coinCounter = 0;
+        this.statistics.timer = 0.0f;
+
+        float minutes = Mathf.FloorToInt(this.statistics.timer / 60);
+        float seconds = Mathf.FloorToInt(this.statistics.timer % 60);
+        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        string coinText = $"Coins: {this.statistics.coinCounter}";
+        coinCounterText.text = coinText;
+    }
+
+    public void ShowGameOver()
+    {
+        gameOverCanvas.GetComponent<Canvas>().sortingOrder = 1;
+        victoryCanvas.GetComponent<Canvas>().sortingOrder = 0;
+        GameManager.Instance.SetIsWon(false);
+
+        this.StartCoroutine(FadeOutUHD());
+        this.StartCoroutine(FadeInGameOver());
+    }
+
+    public void ShowVictory()
+    {
+        victoryCanvas.GetComponent<Canvas>().sortingOrder = 1;
+        gameOverCanvas.GetComponent<Canvas>().sortingOrder = 0;
+        
+        SetGameRunning(false);
+
+        float minutes = Mathf.FloorToInt(this.statistics.timer / 60);
+        float seconds = Mathf.FloorToInt(this.statistics.timer % 60);
+        victoryTimerText.text = $"Time Record: {string.Format("{0:00}:{1:00}", minutes, seconds)}";
+        string coinText = $"Coins Collected: {this.statistics.coinCounter}";
+        victoryCoinCounterText.text = coinText;
+
+        this.StartCoroutine(FadeOutUHD());
+        this.StartCoroutine(FadeInVictory());
     }
 
     public void CollectCoin()
@@ -81,9 +217,9 @@ public class UIManager : MonoBehaviour
         coinCounterText.text = coinText;
     }
 
-    public void SetGameRunning()
+    public void SetGameRunning(bool running)
     {
-        gameRunning = false;
+        gameRunning = running;
     }
 
     // TODO: extract into own script

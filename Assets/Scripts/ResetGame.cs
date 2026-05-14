@@ -25,7 +25,7 @@ public class ResetGame : MonoBehaviour
             return;
 
         gameFinished = true;
-        UIManager.SetGameRunning();
+        UIManager.SetGameRunning(false);
         this.dialogueBox.SetActive(true);
         var uiDocument = this.dialogueBox.GetComponent<UIDocument>();
         var label = uiDocument.rootVisualElement.Q<Label>();
