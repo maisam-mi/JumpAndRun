@@ -44,11 +44,6 @@ public class Character : MonoBehaviour
         footstepAudioSource.Play();
     }
 
-    //void SetAnimationState()
-    //{
-    //    this.animator.SetBool("IsJumping", this.isJumping);
-    //}
-
     void SetAnimationState(Vector2 inputMovement)
     {
         this.animator.SetBool("IsJumping", this.isJumping);
@@ -73,7 +68,7 @@ public class Character : MonoBehaviour
             this.jumpVelocity = Vector3.zero;
             this.isJumping = false;
         }
-        if (this.controller.isGrounded && !this.isJumping && this.jumpAction.WasPressedThisFrame())
+        if (this.controller.isGrounded && !this.isJumping && this.jumpAction.WasPressedThisFrame() && !this.isDeath)
         {
             this.characterGravity = Vector3.zero;
             this.jumpVelocity = Vector3.zero;
@@ -127,7 +122,7 @@ public class Character : MonoBehaviour
         if(!this.isDeath)
             this.controller.Move(combinedMovement);
 
-        if(inputMovement != Vector2.zero && !isJumping)
+        if(inputMovement != Vector2.zero && !isJumping && !this.isDeath)
         {
             this.footstepAudioSource.mute = false;
             if (!dustParticles.isPlaying)
