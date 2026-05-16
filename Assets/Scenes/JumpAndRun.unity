@@ -14302,7 +14302,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 951829843}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &951829845
 Camera:
   m_ObjectHideFlags: 0
@@ -14684,9 +14684,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 2.5
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -14694,7 +14694,7 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
+      time: 0.21416473
       value: 1
       inSlope: 0
       outSlope: 0
@@ -14719,7 +14719,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -16860,6 +16860,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4026577292249022993, guid: 89e1bc162b405e147ac705e846aed70a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1769060126}
+    - targetCorrespondingSourceObject: {fileID: 4026577292249022993, guid: 89e1bc162b405e147ac705e846aed70a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1769060128}
   m_SourcePrefab: {fileID: 100100000, guid: 89e1bc162b405e147ac705e846aed70a, type: 3}
 --- !u!1001 &1424520716
 PrefabInstance:
@@ -17982,6 +17985,14 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9, y: 1.6, z: 0.9}
   m_Center: {x: 0, y: 0.8, z: 0}
+--- !u!81 &1769060128
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769060120}
+  m_Enabled: 1
 --- !u!1 &1777954805 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 788893794562336148, guid: 03ec9b78698ec0744ac3427fb35c09fd, type: 3}
@@ -28071,9 +28082,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 2.5
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -28081,7 +28092,7 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
+      time: 0.21416473
       value: 1
       inSlope: 0
       outSlope: 0
@@ -28106,7 +28117,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
