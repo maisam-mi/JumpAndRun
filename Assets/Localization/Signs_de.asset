@@ -23,17 +23,16 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 81592025341952
-    m_Localized: "Bet\xE4tigen Sie den Hebel, damit sich die Plattformen in Bewegung
-      setzen."
+    m_Localized: "Bet\xE4tige den Hebel, damit sich die Plattformen in Bewegung setzen."
     m_Metadata:
       m_Items: []
   - m_Id: 3027966148730880
-    m_Localized: "Die T\xFCr ist verschlossen. Um sie zu \xF6ffnen, ben\xF6tigen
-      Sie den Schl\xFCssel."
+    m_Localized: "Die T\xFCr ist verschlossen. Um sie zu \xF6ffnen, ben\xF6tigst
+      du den Schl\xFCssel."
     m_Metadata:
       m_Items: []
   - m_Id: 3051377864466432
-    m_Localized: "Du bist in der N\xE4he des Juwels. Weiter so! :D"
+    m_Localized: Du bist auf dem richtigen Weg. Weiter so! :D
     m_Metadata:
       m_Items: []
   - m_Id: 3051582777188352
