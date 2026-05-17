@@ -19,9 +19,17 @@ public class Skeleton : MonoBehaviour
     private Animator animator;
     private bool isDead = false;
 
-    void Start()
+    void OnEnable()
     {
         this.animator = this.GetComponent<Animator>();
+
+        // Reset death state
+        isDead = false;
+
+        // Reset scale (in case it died mid-animation)
+        transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+
+        // Restart movement coroutine
         StartCoroutine(Move());
     }
 
@@ -90,12 +98,10 @@ public class Skeleton : MonoBehaviour
 
         Sequence squashSequence = DOTween.Sequence();
 
-        squashSequence.Append(transform.DOScaleX(1.3f, 0.25f));
-        squashSequence.Join(transform.DOScaleZ(1.3f, 0.25f));
-        squashSequence.Join(transform.DOScaleY(0.4f, 0.25f));
+        squashSequence.Append(transform.DOScale(new Vector3(1.3f, 0.4f, 1.3f), 0.25f));
         squashSequence.AppendInterval(0.1f);
         squashSequence.Append(transform.DOScale(Vector3.zero, 0.2f));
-        squashSequence.OnComplete(() => Destroy(gameObject));
+        squashSequence.OnComplete(() => gameObject.SetActive(false));
     }
 
     private void OnCollisionStay(Collision collision)

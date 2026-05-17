@@ -10,14 +10,24 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject character;
     [SerializeField] private Transform respawnPoint;
     [SerializeField] private Lever lever;
+    [SerializeField] private GameObject key;
+    [SerializeField] private GameObject jewel;
+    [SerializeField] private GameObject heart;
     [SerializeField] private List<GameObject> coins;
+    [SerializeField] private List<GameObject> skeletons;
 
+    public bool IsDoorOpened { private set; get; } = false;
     private bool isWon = false;
 
 
     private void Awake()
     {
         instance = this;
+    }
+
+    public void SetDoorState(bool state)
+    {
+        IsDoorOpened = state;
     }
 
     public void SetIsWon(bool won)
@@ -33,11 +43,27 @@ public class GameManager : MonoBehaviour
         controller.transform.position = respawnPoint.position;
         controller.enabled = true;
 
-        // reset the coins
+        // close the door and reappear the key.
+        SetDoorState(false);
+        key.SetActive(true);
+
+        // reappear the coins
         foreach (GameObject coin in coins)
         {
             coin.SetActive(true);
         }
+
+        // reappear the skeletons
+        foreach (GameObject skeleton in skeletons)
+        {
+            skeleton.SetActive(true);
+        }
+
+        // reappear the jewel
+        jewel.SetActive(true);
+
+        // reappear the heart
+        heart.SetActive(true);
 
         // reset the coin counter and timer
         UIManager.Instance.ResetUI(isWon);

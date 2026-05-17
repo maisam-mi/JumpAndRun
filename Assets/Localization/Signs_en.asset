@@ -27,7 +27,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3027966148730880
-    m_Localized: 
+    m_Localized: The door is locked. To open it, you need the key.
     m_Metadata:
       m_Items: []
   - m_Id: 3051377864466432
@@ -37,6 +37,11 @@ MonoBehaviour:
   - m_Id: 3051582777188352
     m_Localized: "Watch out the enemies and the saw. They can hurt you :P \nBy the
       way, you can destroy enemies by jumping on them."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9451293633404928
+    m_Localized: "This way leads to the key. \nBe carefull, dont get hit by the spikes,
+      they can hurt you!"
     m_Metadata:
       m_Items: []
   references:

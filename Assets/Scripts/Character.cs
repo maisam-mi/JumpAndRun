@@ -201,4 +201,9 @@ public class Character : MonoBehaviour
     {
         currentHealth = maxHealth;
     }
+
+    public void IncreaseHealth()
+    {
+        currentHealth = Mathf.Clamp(this.currentHealth + maxHealth / 2, 0.0f, this.maxHealth);
+    }
 }

@@ -28,7 +28,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3027966148730880
-    m_Localized: 
+    m_Localized: "Die T\xFCr ist verschlossen. Um sie zu \xF6ffnen, ben\xF6tigen
+      Sie den Schl\xFCssel."
     m_Metadata:
       m_Items: []
   - m_Id: 3051377864466432
@@ -38,6 +39,11 @@ MonoBehaviour:
   - m_Id: 3051582777188352
     m_Localized: "Pass auf die Gegner und die S\xE4ge auf! Die k\xF6nnen dich verletzen
       :P \n\xDCbrigens: Du kannst Gegner besiegen, indem du auf sie springst."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9451293633404928
+    m_Localized: "Dieser Weg f\xFChrt zum Schl\xFCssel. \nVorsicht, lass dich nicht
+      von den Stacheln treffen, sie k\xF6nnen weh tun!"
     m_Metadata:
       m_Items: []
   references:

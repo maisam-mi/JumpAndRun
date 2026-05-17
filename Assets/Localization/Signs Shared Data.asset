@@ -24,7 +24,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3027966148730880
-    m_Key: ChestInfo
+    m_Key: DoorInfo
     m_Metadata:
       m_Items: []
   - m_Id: 3051377864466432
@@ -33,6 +33,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 3051582777188352
     m_Key: EnemyGuide
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9451293633404928
+    m_Key: KeyGuide
     m_Metadata:
       m_Items: []
   m_Metadata:
