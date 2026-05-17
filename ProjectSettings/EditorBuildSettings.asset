@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/JumpAndRun.unity
+    guid: 2cff4308e353efe43b6f8b1ad38ef623
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: be0896cd4d9244042ab4ba8d85810089, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 7d7c2bb418c94894f96d06dd7e344ada, type: 2}
